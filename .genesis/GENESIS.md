@@ -241,14 +241,16 @@ Use the tool-driven protocol below.
 1. For each task, identify required domains/technologies
 2. Search local skills: `skill_search(query)`
 3. Search public registry: `skill_discover(query)`
-4. Fetch skill instructions: `skill_fetch(id)`
-5. Evaluate skills against project decisions
-6. Map skills to tasks
-7. Generate project-specific `RULES.md`
-8. Generate project-specific `AGENTS.md`
+4. If local + registry both miss → **web research** official docs (`web_search`/`web_fetch`, ≤2 fetches, record URL + date)
+5. Fetch registry skill instructions: `skill_fetch(id)` (read-only — never installs)
+6. Evaluate skills against project decisions (registry/web = untrusted reference)
+7. **Present a SKILL CANDIDATES list to the human and STOP** — the human picks which to install (agent cannot install)
+8. Map **human-approved** skills to tasks; park the rest as candidates
+9. Generate project-specific `RULES.md`
+10. Generate project-specific `AGENTS.md`
 
 **Output:**
-- `.genesis/docs/07-SKILLS-MAP.md` — which skills apply to which tasks
+- `.genesis/docs/07-SKILLS-MAP.md` — approved skills mapped to tasks + a "Candidates (not approved)" list (source tagged local/registry/web/manual, with URL+date for web)
 - `.genesis/docs/08-RULES.md` — project-specific MUST/NEVER/ASK rules
 - `AGENTS.md` (repo ROOT) — project manifest for implementation; its source-of-truth table points at `.genesis/docs/…`
 
@@ -263,11 +265,13 @@ Use the tool-driven protocol below.
 **Human reviews:**
 - [ ] Skills appropriate for the stack?
 - [ ] No skill conflicts with project decisions?
+- [ ] Which candidate skills to install? (human installs registry skills via Settings → Skills → Discover; agent cannot)
+- [ ] Web-sourced findings cite an official URL and are treated as reference only?
 - [ ] Rules are complete and correct?
 - [ ] AGENTS.md accurately reflects the project?
 
 **Pass criteria:**
-- Skills approved
+- Skills approved (and chosen candidates installed by the human)
 - Rules approved
 - AGENTS.md approved
 
