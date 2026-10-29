@@ -45,7 +45,7 @@
 
 > What has actually shipped. A task is **Delivered ✅** only when merged to base +
 > CI green + evidence approved (Gate G3) — i.e. issue state `Done`. Keep this in
-> lockstep with the Execution Order table.
+> lockstep with the waves in `06-TASK-ORDER.md` (the live run state).
 
 | Task | Title | PR | Merged | Evidence (G3) | Delivered |
 |------|-------|----|--------|---------------|-----------|

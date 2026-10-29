@@ -19,9 +19,9 @@
 ```mermaid
 flowchart TB
     O[Observability]
-    O --> L[LOGS<br/>what happened<br/>detailed events · debug & audit]
-    O --> M[METRICS<br/>how it's doing<br/>aggregated values · trends & alerts]
-    O --> T[TRACES<br/>request flow<br/>distributed path · latency & deps]
+    O --> L["LOGS<br/>what happened"]
+    O --> M["METRICS<br/>how it's doing"]
+    O --> T["TRACES<br/>request flow"]
 ```
 
 ---

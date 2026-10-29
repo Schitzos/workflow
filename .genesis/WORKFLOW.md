@@ -38,7 +38,7 @@ required fixes loop back to IMPLEMENT (no human gate).
 
 ## Phase 0: TRIGGER
 
-**Input:** Task from `TASK-LIST.md` or user request.
+**Input:** Next task from `06-TASK-ORDER.md` (GENESIS-prepared work) or an ad-hoc user request.
 
 > For GENESIS-prepared work, take the next task from **`06-TASK-ORDER.md`** (the "Run Next" pointer / current wave) — the main run reference. Dispatch a whole wave in parallel when its tasks are file-disjoint (see Parallel-Batch Mode), else take the next eligible task top-down. A task is eligible only when every "Depends On" task is `Done`. Update Status/Delivered in TASK-ORDER.md as you progress; TASK-LIST.md holds the detail.
 

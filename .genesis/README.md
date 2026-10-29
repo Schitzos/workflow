@@ -5,6 +5,29 @@
 
 ---
 
+## ⚡ Start every agent session here
+
+**Point your agent at the PLAYBOOK at the start of every session:**
+
+> Read `.genesis/PLAYBOOK.md` and follow it.
+
+`.genesis/PLAYBOOK.md` is the runtime-agnostic operating protocol — the gates, the
+standing rules, and a map of which file to read for each phase (so the agent does
+**not** read the whole docset up front). This one pointer is what makes a fresh
+session follow the entire workflow.
+
+- **Kiro** loads it automatically (`.kiro/steering/genesis.md` → PLAYBOOK) — no action needed.
+- **Every other agent** (Claude Code, Codex, Cursor, Gemini, Copilot, ad-hoc): the
+  human pastes the line above each session, or adds it once to that tool's own
+  instruction file (`CLAUDE.md`, root `AGENTS.md`, `.cursorrules`, `GEMINI.md`,
+  `.github/copilot-instructions.md`). The PLAYBOOK's last section lists the exact
+  line per runtime.
+
+> If you skip this, the agent may miss the protocol. The PLAYBOOK is the single
+> entry point; everything below is reference.
+
+---
+
 ## What This Workflow Does
 
 ```
@@ -40,7 +63,7 @@ flowchart TB
     GEN -->|Go| IMPL
     subgraph IMPL [STAGE 2 · WORKFLOW per task]
         direction LR
-        S[Spec·G1] --> D[Design·G2] --> I[Implement<br/>husky: lint+types+tests+cov≥80%] --> R[Review×7] --> V[Verify·G3<br/>CI+evidence] --> M[Merge·G4]
+        S[Spec·G1] --> D[Design·G2] --> I[Implement<br/>husky: lint+types+tests+cov≥80%] --> R[Review 7-persp] --> V[Verify·G3<br/>CI+evidence] --> M[Merge·G4]
         R -. fail ≤2× .-> I
     end
     IMPL --> DONE([Shipped ✅])
@@ -56,10 +79,8 @@ flowchart TB
 ## Design: Two Stages
 
 ```mermaid
-flowchart TB
-    S1["<b>STAGE 1 · GENESIS</b> (this workflow)<br/>Raw requirement → production-ready docs<br/>5 phases + Phase 5.5 (Project Setup) · 6 human gates<br/>Critical grooming, not passive Q&A"]
-    S2["<b>STAGE 2 · IMPLEMENTATION</b><br/>WORKFLOW.md executes the tasks<br/>5 phases + REVIEW step · 4 human gates<br/>Code, review, test, verify, release"]
-    S1 -->|"produces docs + a stood-up repo (CI, Sonar, husky)"| S2
+flowchart LR
+    S1["STAGE 1 · GENESIS<br/>requirement → docs<br/>6 gates"] -->|"docs + repo"| S2["STAGE 2 · WORKFLOW<br/>implement tasks<br/>4 gates"]
 ```
 
 ---
@@ -69,6 +90,7 @@ flowchart TB
 | File | Purpose | Read When |
 |------|---------|-----------|
 | `README.md` | This file — entry point | First |
+| `PLAYBOOK.md` | **Agent operating protocol — point every session here** | Every session, first |
 | `GENESIS.md` | The meta-workflow (5 phases + Phase 5.5 setup, 6 gates) | Starting a new project |
 | `GROOMING-PROTOCOL.md` | How agent challenges decisions | During grooming |
 | `GROOMING-CHECKLIST.md` | All questions to ask | During grooming |
@@ -131,7 +153,7 @@ flowchart TB
 ## Reading Order
 
 ```
-README.md → GLOSSARY.md → GENESIS.md → GROOMING-PROTOCOL.md
+PLAYBOOK.md (agent, every session) → README.md → GLOSSARY.md → GENESIS.md → GROOMING-PROTOCOL.md
 ```
 
 Establish shared vocabulary first, then know the 5 phases (+ Phase 5.5 setup), 6 gates, and critical grooming mindset. Everything else is reference.
